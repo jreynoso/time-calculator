@@ -1,4 +1,4 @@
-package com.dispassionproject.sandbox;
+package com.dispassionproject.assessment;
 
 import lombok.extern.slf4j.Slf4j;
 

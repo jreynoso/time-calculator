@@ -1,4 +1,4 @@
-package com.dispassionproject.sandbox;
+package com.dispassionproject.assessment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

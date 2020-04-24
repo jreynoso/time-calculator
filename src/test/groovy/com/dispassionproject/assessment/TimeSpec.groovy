@@ -1,4 +1,4 @@
-package com.dispassionproject.sandbox
+package com.dispassionproject.assessment
 
 import com.github.javafaker.Faker
 import spock.lang.Specification
