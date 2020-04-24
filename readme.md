@@ -1,5 +1,13 @@
-## Objective
+# Overview
+    .
+    ├── gradle          # Bundled gradle wrapper  
+    ├── src             # Source code
+    │   ├── main        # Implementation
+    │   └── test        # Unit tests
+    ├── build.gradle    # Gradle config
+    └── readme.md
 
+## Objective
 Without using any built-in date or time functions, write a function or method that accepts two
 mandatory arguments: the first argument is a 12-hour time string with the format "[H]H:MM
 {AM|PM}", and the second argument is a (signed) integer. The second argument is the number of
@@ -8,6 +16,15 @@ string of the same format as the first argument. For example, AddMinutes("9:13 A
 return "12:33 PM". The exercise isn't meant to be too hard or take very long; we just want to see
 how you code. Use any mainstream language you want, though Java and Scala are particularly
 relevant to us. Please include any test cases that you write.
+
+## Requirements
+- Java 8
+
+## How to Run Tests
+Clone project and cd to project dir, then run: 
+```$bash
+$ ./gradlew clean check
+```
 
 ## Comments
 Perhaps not the most *clever* implementation, but it was simple for me to reason about.
