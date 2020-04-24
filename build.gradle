@@ -4,17 +4,19 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 
 sourceCompatibility = 1.8
+def fakerVersion = '1.0.2'
 def groovyVersion = '2.5'
-def spockVersion = '1.3'
 def lombokVersion = '1.18.+'
+def spockVersion = '1.3'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
 
-    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}.+"
-    testCompile "org.spockframework:spock-core:${spockVersion}-groovy-${groovyVersion}"
+    testImplementation "org.codehaus.groovy:groovy-all:${groovyVersion}.+"
+    testImplementation "org.spockframework:spock-core:${spockVersion}-groovy-${groovyVersion}"
+    testImplementation "com.github.javafaker:javafaker:${fakerVersion}"
 }

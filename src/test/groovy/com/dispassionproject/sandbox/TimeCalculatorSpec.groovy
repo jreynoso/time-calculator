@@ -1,11 +1,17 @@
 package com.dispassionproject.sandbox
 
+import com.github.javafaker.Faker
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @Unroll
 class TimeCalculatorSpec extends Specification {
 
+    @Shared
+    Faker faker = new Faker()
+
+    @Unroll
     def "should calculate a new time from #testTime, offset by #minOffset minutes"() {
         when:
         def offsetTime = TimeCalculator.addMinutes(testTime, minOffset)
@@ -23,6 +29,18 @@ class TimeCalculatorSpec extends Specification {
         '11:59 PM' | 1         || '12:00 AM'
         '1:00 PM'  | -1        || '12:59 PM'
         '1:00 AM'  | -1        || '12:59 AM'
+    }
+
+    @Unroll
+    def "should throw exception when receiving invalid time input: #testTime"() {
+        when:
+        TimeCalculator.addMinutes(testTime, faker.number().numberBetween(-100, 100))
+
+        then:
+        thrown IllegalArgumentException
+
+        where:
+        testTime << [null, faker.lorem().word(), '13:00', '01:00 AM', '0:00 AM', '10:1 PM', '1:00 am', '1:00 pm']
     }
 
 }
