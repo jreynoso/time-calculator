@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Time {
+class Time {
 
     private static final String TIME_FORMAT = "^(1[0-2]|[1-9]):[0-5][0-9] (AM|PM)$";
     private static final String AM = "AM";
@@ -16,7 +16,37 @@ public class Time {
     private int hours;
     private int minutes;
 
-    public static Time fromFormattedTime(final String formatted12HourTime) {
+    void adjustHours(int hoursOffset) {
+        int adjustedHours = hours + hoursOffset;
+        if (adjustedHours < 0) {
+            hours = 24 + adjustedHours;
+        } else if (adjustedHours > 23) {
+            hours = adjustedHours - 24;
+        }
+        else {
+            hours = adjustedHours;
+        }
+    }
+
+    void adjustMinutes(int minsOffset) {
+        int adjustedMinutes = minutes + minsOffset;
+        if (adjustedMinutes < 0) {
+            adjustHours(-1);
+            minutes = 60 + adjustedMinutes;
+        } else if (adjustedMinutes > 59) {
+            adjustHours(1);
+            minutes = adjustedMinutes - 60;
+        } else {
+            minutes = adjustedMinutes;
+        }
+    }
+
+    String to12HourFormat() {
+        final int convertedHours = hours == 0 ? 12 : hours <= 12 ? hours : hours - 12;
+        return String.format("%d:%02d %s", convertedHours, minutes, hours < 12 ? AM : PM);
+    }
+
+    static Time fromFormattedTime(final String formatted12HourTime) {
         if (!isValid12HourTime(formatted12HourTime)) {
             return null;
         }
@@ -44,33 +74,4 @@ public class Time {
         return formatted12HourTime != null && formatted12HourTime.matches(TIME_FORMAT);
     }
 
-    public void adjustHours(int hoursOffset) {
-        int adjustedHours = hours + hoursOffset;
-        if (adjustedHours < 0) {
-            hours = 24 + adjustedHours;
-        } else if (adjustedHours > 23) {
-            hours = adjustedHours - 24;
-        }
-        else {
-            hours = adjustedHours;
-        }
-    }
-
-    public void adjustMinutes(int minsOffset) {
-        int adjustedMinutes = minutes + minsOffset;
-        if (adjustedMinutes < 0) {
-            adjustHours(-1);
-            minutes = 60 + adjustedMinutes;
-        } else if (adjustedMinutes > 59) {
-            adjustHours(1);
-            minutes = adjustedMinutes - 60;
-        } else {
-            minutes = adjustedMinutes;
-        }
-    }
-
-    public String to12HourFormat() {
-        final int convertedHours = hours == 0 ? 12 : hours <= 12 ? hours : hours - 12;
-        return String.format("%d:%02d %s", convertedHours, minutes, hours < 12 ? AM : PM);
-    }
 }
