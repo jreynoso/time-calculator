@@ -8,7 +8,7 @@ public class TimeCalculator {
     private static final String TIME_FORMAT = "^(1[0-2]|[1-9]):[0-5][0-9] (AM|PM)$";
 
     public static String addMinutes(final String formattedTime, final int offsetMinutes) {
-        final Time time = fromFormattedTime(formattedTime);
+        final Time time = from12HourFormattedTime(formattedTime);
         if (time == null) {
             throw new IllegalArgumentException(String.format("%s is not a valid time input.", formattedTime));
         }
@@ -23,7 +23,7 @@ public class TimeCalculator {
         return time.to12HourFormat();
     }
 
-    private static Time fromFormattedTime(final String formatted12HourTime) {
+    private static Time from12HourFormattedTime(final String formatted12HourTime) {
         if (!isValid12HourTime(formatted12HourTime)) {
             return null;
         }
