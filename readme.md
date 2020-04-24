@@ -1,4 +1,4 @@
-## Objecttive
+## Objective
 
 Without using any built-in date or time functions, write a function or method that accepts two
 mandatory arguments: the first argument is a 12-hour time string with the format "[H]H:MM
