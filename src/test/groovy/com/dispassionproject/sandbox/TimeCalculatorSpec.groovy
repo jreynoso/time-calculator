@@ -9,7 +9,7 @@ import spock.lang.Unroll
 class TimeCalculatorSpec extends Specification {
 
     @Shared
-    Faker faker = new Faker()
+    def faker = new Faker()
 
     @Unroll
     def "should calculate a new time from #testTime, offset by #minOffset minutes"() {
@@ -29,6 +29,11 @@ class TimeCalculatorSpec extends Specification {
         '11:59 PM' | 1         || '12:00 AM'
         '1:00 PM'  | -1        || '12:59 PM'
         '1:00 AM'  | -1        || '12:59 AM'
+        '12:00 AM' | -61       || '10:59 PM'
+        '11:00 PM' | 61        || '12:01 AM'
+        '12:00 AM' | -1440     || '12:00 AM'
+        '12:00 AM' | 1440      || '12:00 AM'
+        '9:13 AM'  | 200       || '12:33 PM'
     }
 
     @Unroll
